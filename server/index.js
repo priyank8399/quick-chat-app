@@ -9,16 +9,14 @@ const { callbackify } = require('util');
 const app = express();
 const server = http.createServer(app);
 //Come back to this https://stackoverflow.com/questions/24058157/socket-io-node-js-cross-origin-request-blocked
+
+//const io = socketio(server, connectionOptions);
 const io = socketio(server, {
     cors: {
-        origin: "your origin",
-        methods: ["GET", "POST"],
-        credentials: true
-    }
-});
+      origin: "*",
+    },
+  });
 
-app.use(cors());
-app.use(router);
 
 io.on('connection', (socket) => {
     console.log('A new user has connected.');
