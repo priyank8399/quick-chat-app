@@ -15,11 +15,14 @@ const Chat = ({ location }) => {
         setName(name);
         setRoom(room);
 
-        socket.emit('login', { name, room }, (error) => {
-            if(error){
-                alert(error);
-            }
+        socket.emit('login', { name, room }, () => {
+            //error
         });
+
+        return () => {
+            socket.emit('disconnect');
+            socket.off();
+        }
     }, [ENDPOINT, location.search]);
 
     return (
