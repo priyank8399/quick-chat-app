@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
     console.log('A new user has connected.');
 
     socket.on('login', ({ name, room }, callback) => {
-        const{error, user} = addUser({id: socket.id, name, room});
+        const{error, user} = addUser({ id: socket.id, name, room });
 
         if(error) return callback(error);
 

@@ -7,7 +7,10 @@ let socket;
 const Chat = ({ location }) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [messages, setMessages] = useState([]); // Messages array
+    const [message, setMessage] = useState(''); // Each individual message
     const ENDPOINT = 'localhost:5000';
+    
     useEffect(() => {
         const {name, room} = queryString.parse(location.search);
         socket = io(ENDPOINT); //Modify this to change target server
@@ -25,9 +28,33 @@ const Chat = ({ location }) => {
         }
     }, [ENDPOINT, location.search]);
 
+
+    useEffect(() => {
+        socket.on('message', (message) => {
+            setMessages([...messages, message]);
+        })
+    }, [messages]);
+
+    //sending message (sendMessage())
+    const sendMessage = event => {
+        event.preventDefault(); // Prevent a full refresh
+        if(message) {
+            socket.emit('sendMessage', message, () => setMessage(''));
+        }
+    }
+
+    console.log(message, messages);
+
     return (
-        <h1>Chat</h1>
-    );
+        <div className="outerContainer">
+            <div className="innerContainer">
+                <input value = {message}
+                onChange = {(event) => setMessage(event.target.value)}
+                onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+                />
+            </div>
+        </div>
+    )
 }
 
 export default Chat;
