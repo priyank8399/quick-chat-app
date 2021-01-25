@@ -14,7 +14,7 @@ const Chat = ({ location }) => {
     const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]); // Messages array
     const [message, setMessage] = useState(''); // Each individual message
-    const ENDPOINT = 'localhost:5000';
+    const ENDPOINT = 'https://group-chat-react-node.herokuapp.com/';
     
     useEffect(() => {
         const {name, room} = queryString.parse(location.search);

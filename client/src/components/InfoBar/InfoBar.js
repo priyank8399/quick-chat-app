@@ -3,6 +3,7 @@ import React from 'react';
 import './InfoBar.css';
 import onlineIcon from '../Icons/onlineIcon.png';
 import closeIcon from '../Icons/closeIcon.png';
+
 const InfoBar = ({room}) => (
     <div className="infoBar">
         <div className="leftInnerContainer">
